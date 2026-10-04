@@ -23,14 +23,14 @@ Puis il file en vélo-cargo, ou en camionnette électrique — pendant que les a
 Et vous suivez tout, en temps réel.
 [warmly] Livré. [short pause] À l'heure. [short pause] En parfait état.
 [confident] /ɡʁesɛnd/. [short pause] La livraison, en toute simplicité.
-Demandez votre devis sur /ɡʁesɛnd/ point bé.
+Demandez votre devis sur /ɡʁesɛnd/ point bé-eu.
 ```
 
 Le texte fait environ 95 mots, soit 38 à 40 s de voix. Il reste ainsi 5 à 7 s pour respirer et pour la carte de fin.
 
 **Prononciation (validée) :**
 - **« Gresend » = « Gré-sennde »** : le mot est écrit `/ɡʁesɛnd/` dans le texte envoyé au modèle. Les sous-titres et textes à l'écran gardent bien sûr « Gresend ».
-- **« gresend.be »** est lu « Gré-sennde point bé », comme on le prononce en Belgique.
+- **« gresend.be »** est lu « Gré-sennde point bé-eu » (B-E épelé, comme on le dit en Belgique). Écrit `point bé-eu` dans le texte envoyé au modèle.
 - « LEZ » n'est **pas** prononcé, c'est trop ambigu à l'oral. La voix dit « zones basses émissions » et l'écran affiche « LEZ ».
 
 ### Voix : français, accent belge
@@ -41,6 +41,8 @@ Le texte fait environ 95 mots, soit 38 à 40 s de voix. Il reste ainsi 5 à 7 s 
 | **Adrien** (`IpTJxgMFj1wbxpha4zxm`) | Belge, la trentaine, calme, décontracté | Alternative : plus proche de l'âge de la cible, plus « voisin » |
 | Christophe Géradon (`HDc7042zGcc1SdpT2m1U`) | Belge, 50 ans, accent liégeois marqué | Écartée : l'accent liégeois est moins « bruxellois », et la voix est plutôt narrative |
 | Samuel (`KQmyXAYSiYXdRqlwDQFX`) | Belge, podcast | Écartée : profil conversationnel, pas publicitaire |
+
+**✅ Voix retenue : Luca.** La fin « point bé » a été corrigée en « point bé-eu » : la dernière phrase a été régénérée seule et raccordée dans la pause (fichiers `public/audio/vo-takes/luca-take1-final.wav` et `luca-take2-final.wav`).
 
 **Prises générées** (`eleven_v4`, flow ElevenLabs « Gresend — Le Colis — VO FR (BE) ») : 2 prises de Luca et 2 prises d'Adrien. Il faut choisir à l'oreille la prise avec l'accent belge le plus naturel et le meilleur rythme.
 
@@ -157,7 +159,7 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 **Voix off de la version 15 s :**
 
 ```text
-[serious] Votre client attend toujours ? [short pause] [warmly] Avec /ɡʁesɛnd/, votre colis ne fait plus la queue. [upbeat] Vélo-cargo, électrique, sept jours sur sept. [confident] Devis sur /ɡʁesɛnd/ point bé.
+[serious] Votre client attend toujours ? [short pause] [warmly] Avec /ɡʁesɛnd/, votre colis ne fait plus la queue. [upbeat] Vélo-cargo, électrique, sept jours sur sept. [confident] Devis sur /ɡʁesɛnd/ point bé-eu.
 ```
 
 **Règle pour les sous-titres :** le master 16:9 n'en a pas (les mots-clés animés suffisent). Toutes les versions réseaux sociaux en ont, car la lecture automatique y est muette.
