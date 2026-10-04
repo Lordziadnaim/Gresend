@@ -10,38 +10,39 @@
 
 ## Script voix off — ElevenLabs `eleven_v4` (FR)
 
-Le texte ci-dessous est **exactement** celui à envoyer au modèle. Les balises `[…]` règlent l'interprétation et restent actives jusqu'à la balise suivante.
+Le texte ci-dessous est **exactement** celui envoyé au modèle. Les balises `[…]` règlent l'interprétation et restent actives jusqu'à la balise suivante. « Gresend » est écrit en API (`/ɡʁesɛnd/`) pour forcer la prononciation **« Gré-sennde »**.
 
 ```text
 [serious] Votre client a commandé hier… [short pause] Il attend toujours.
 [slightly annoyed] Bouchons, stationnement, zones basses émissions… [short pause] À Bruxelles, chaque retard vous coûte un client.
 [pause]
-[warmly] Avec Gresend, votre colis ne fait plus la queue.
+[warmly] Avec /ɡʁesɛnd/, votre colis ne fait plus la queue.
 On le récupère, on le trie, on le stocke… aux portes de Bruxelles.
 Puis il file en vélo-cargo, ou en camionnette électrique — pendant que les autres attendent.
 [upbeat] Express, au frais, en tournée… ou partout en Europe. [short pause] Sept jours sur sept.
 Et vous suivez tout, en temps réel.
 [warmly] Livré. [short pause] À l'heure. [short pause] En parfait état.
-[confident] Gresend. [short pause] La livraison, en toute simplicité.
-Demandez votre devis sur gresend point be.
+[confident] /ɡʁesɛnd/. [short pause] La livraison, en toute simplicité.
+Demandez votre devis sur /ɡʁesɛnd/ point bé.
 ```
 
 Le texte fait environ 95 mots, soit 38 à 40 s de voix. Il reste ainsi 5 à 7 s pour respirer et pour la carte de fin.
 
-**Points de prononciation à valider :**
-- **« Gresend »** : comment le client le prononce-t-il ? « Gré-sennde » ou « Gri-sennde » (*green send*) ? Si le modèle se trompe, on remplace le mot par son API entre barres obliques, par exemple `/ɡʁesɛnd/` ou `/ɡʁisɛnd/`.
-- **« gresend point be »** : c'est écrit ainsi pour que l'URL soit lue naturellement.
+**Prononciation (validée) :**
+- **« Gresend » = « Gré-sennde »** : le mot est écrit `/ɡʁesɛnd/` dans le texte envoyé au modèle. Les sous-titres et textes à l'écran gardent bien sûr « Gresend ».
+- **« gresend.be »** est lu « Gré-sennde point bé », comme on le prononce en Belgique.
 - « LEZ » n'est **pas** prononcé, c'est trop ambigu à l'oral. La voix dit « zones basses émissions » et l'écran affiche « LEZ ».
 
-### Voix candidates (bibliothèque ElevenLabs, FR)
+### Voix : français, accent belge
 
-| Voix | Profil | Pour |
+| Voix | Profil | Statut |
 |---|---|---|
-| **Nico** (`MAZdzkb78f8SA7DNBT41`) ⭐ | Homme d'âge moyen, doux, rassurant, « souriant », pub | Confiance B2B, chaleur |
-| **Alexandre** (`EGS8Z4YTFhSL6Mm6LpoK`) | Homme jeune, persuasif, moderne | Énergie, réseaux sociaux |
-| **Christophe Géradon** (`HDc7042zGcc1SdpT2m1U`) | **Belge**, léger accent liégeois, narratif | Authenticité locale |
+| **Luca** (`usy5mXLbV9SeGWACyT3Y`) ⭐ | Belge, « calme et pro » | **Voix principale** : le ton posé et professionnel qui parle à un gérant de commerce |
+| **Adrien** (`IpTJxgMFj1wbxpha4zxm`) | Belge, la trentaine, calme, décontracté | Alternative : plus proche de l'âge de la cible, plus « voisin » |
+| Christophe Géradon (`HDc7042zGcc1SdpT2m1U`) | Belge, 50 ans, accent liégeois marqué | Écartée : l'accent liégeois est moins « bruxellois », et la voix est plutôt narrative |
+| Samuel (`KQmyXAYSiYXdRqlwDQFX`) | Belge, podcast | Écartée : profil conversationnel, pas publicitaire |
 
-**Procédure :** générer les deux premières phrases avec les trois voix, écouter, choisir. Puis générer le script complet en 2 ou 3 prises et garder la meilleure.
+**Prises générées** (`eleven_v4`, flow ElevenLabs « Gresend — Le Colis — VO FR (BE) ») : 2 prises de Luca et 2 prises d'Adrien. Il faut choisir à l'oreille la prise avec l'accent belge le plus naturel et le meilleur rythme.
 
 ---
 
@@ -138,7 +139,7 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 
 ### P10 — L'appel à l'action · 40,0–45,0 s (i 1200–1350)
 **VO :** « Demandez votre devis sur gresend point be. »
-- **Image :** carte de fin. `gresend.be` en grand, un bouton `Demander un devis →` (lime, texte blanc), le téléphone (**numéro à confirmer**), et une rangée d'icônes : `7j/7 · Électrique · Frigo · Stockage · Europe`.
+- **Image :** carte de fin. `gresend.be` en grand, un bouton `Demander un devis →` (lime, texte blanc), le téléphone **+32 471 30 40 31**, et une rangée d'icônes : `7j/7 · Électrique · Frigo · Stockage · Europe`.
 - **Durée de lecture :** la carte reste **au moins 3 s** sans mouvement important.
 - **SFX :** clic du bouton (le bouton « s'enfonce » une fois), puis la musique s'éteint.
 
@@ -156,7 +157,7 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 **Voix off de la version 15 s :**
 
 ```text
-[serious] Votre client attend toujours ? [short pause] [warmly] Avec Gresend, votre colis ne fait plus la queue. [upbeat] Vélo-cargo, électrique, sept jours sur sept. [confident] Devis sur gresend point be.
+[serious] Votre client attend toujours ? [short pause] [warmly] Avec /ɡʁesɛnd/, votre colis ne fait plus la queue. [upbeat] Vélo-cargo, électrique, sept jours sur sept. [confident] Devis sur /ɡʁesɛnd/ point bé.
 ```
 
 **Règle pour les sous-titres :** le master 16:9 n'en a pas (les mots-clés animés suffisent). Toutes les versions réseaux sociaux en ont, car la lecture automatique y est muette.

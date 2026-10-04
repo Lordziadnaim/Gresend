@@ -22,7 +22,7 @@
 - **Promesses génériques :** « fiable », « rapide », « irréprochable »… Tous les concurrents disent la même chose. Rien ne *montre* le mécanisme.
 - **Aucune preuve :** pas de logos clients, de chiffres ni de témoignages.
 - **Visuels :** illustrations isométriques de banque d'images (fond bleu ciel, cartons orange). Notre style 2.5D isométrique **prolonge leur univers existant**, ce qui rassure le client, mais le rend propriétaire et vivant.
-- **Incohérence :** deux numéros différents (0498 16 96 70 dans le corps de page, +32 471 30 40 31 dans le pied de page). → **À clarifier.**
+- **Incohérence :** deux numéros différents (0498 16 96 70 dans le corps de page, +32 471 30 40 31 dans le pied de page). → **Décision : le film utilise le +32 471 30 40 31.** Signaler l'incohérence au client, c'est un bon point de conversation.
 - **Bilingue :** le site est en FR/NL/EN, donc une déclinaison NL de la vidéo est un upsell naturel.
 
 ### Le marché

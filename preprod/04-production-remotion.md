@@ -89,7 +89,7 @@ gresend/
 - [ ] Accroche compréhensible en **moins de 3 s**
 - [ ] Logo **absent** avant la bascule (Schwartz : la douleur d'abord)
 - [ ] **Une seule** action demandée à la fin, lisible au moins 3 s
-- [ ] Numéro de téléphone **confirmé**, URL correcte
+- [ ] Téléphone **+32 471 30 40 31** et URL `gresend.be` corrects
 - [ ] Aucun chiffre inventé ni fausse promesse (rien qui ne soit sur leur site)
 - [ ] Zones sûres 9:16 respectées (UI Instagram/TikTok en haut et en bas)
 - [ ] −14 LUFS, *true peak* ≤ −1 dBTP
@@ -97,7 +97,7 @@ gresend/
 
 ## Questions ouvertes (à régler avant l'étape 2)
 
-1. **Prononciation de « Gresend »** : « Gré-sennde » ou « Gri-sennde » ?
-2. **Numéro de l'appel à l'action** : 0498 16 96 70 ou +32 471 30 40 31 ?
+1. ~~Prononciation~~ → **« Gré-sennde »** (`/ɡʁesɛnd/`) ✅
+2. ~~Numéro~~ → **+32 471 30 40 31** ✅
 3. **Logo officiel en SVG** : on a une vectorisation propre depuis le PDF, mais l'original est préférable pour la version finale.
 4. **Une vraie photo ou un nom de client ?** C'est optionnel, mais ce serait une preuve forte pour une vidéo suivante (témoignage).
