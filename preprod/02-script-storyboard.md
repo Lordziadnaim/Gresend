@@ -19,7 +19,7 @@ Le texte ci-dessous est **exactement** celui envoyé au modèle. Les balises `[�
 [warmly] Avec /ɡʁesɛnd/, votre colis ne fait plus la queue.
 On le récupère, on le trie, on le stocke… aux portes de Bruxelles.
 Puis il file en vélo-cargo, ou en camionnette électrique — pendant que les autres attendent.
-[upbeat] Express, au frais, en tournée… ou partout en Europe. [short pause] Sept jours sur sept.
+[upbeat] Express, au frais, en tournée… [short pause] Sept jours sur sept.
 Et vous suivez tout, en temps réel.
 [warmly] Livré. [short pause] À l'heure. [short pause] En parfait état.
 [confident] /ɡʁesɛnd/. [short pause] La livraison, en toute simplicité.
@@ -42,7 +42,7 @@ Le texte fait environ 95 mots, soit 38 à 40 s de voix. Il reste ainsi 5 à 7 s 
 | Christophe Géradon (`HDc7042zGcc1SdpT2m1U`) | Belge, 50 ans, accent liégeois marqué | Écartée : l'accent liégeois est moins « bruxellois », et la voix est plutôt narrative |
 | Samuel (`KQmyXAYSiYXdRqlwDQFX`) | Belge, podcast | Écartée : profil conversationnel, pas publicitaire |
 
-**✅ Voix retenue : Luca.** La dernière phrase a été remplacée par « Demandez votre devis sur notre site » (l'URL est à l'écran) : elle a été régénérée seule, raccordée dans la pause et son volume ajusté (fichiers `public/audio/vo-takes/luca-take1-final.wav` et `luca-take2-final.wav`).
+**✅ Voix retenue : Luca.** « ou partout en Europe » a été **coupé dans l'audio** : c'est une promesse du site qu'on ne peut pas vérifier, et elle n'aide pas la cible locale. La coupe a été faite dans les silences et vérifiée par une transcription Scribe. La dernière phrase a été remplacée par « Demandez votre devis sur notre site » (l'URL est à l'écran) : elle a été régénérée seule, raccordée dans la pause et son volume ajusté (fichiers `public/audio/vo-takes/luca-take1-final.wav` et `luca-take2-final.wav`).
 
 **Prises générées** (`eleven_v4`, flow ElevenLabs « Gresend — Le Colis — VO FR (BE) ») : 2 prises de Luca et 2 prises d'Adrien. Il faut choisir à l'oreille la prise avec l'accent belge le plus naturel et le meilleur rythme.
 
@@ -107,12 +107,11 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 - **SFX :** sonnette de vélo (une fois, à « file »), roue libre, ronronnement électrique, klaxon lointain étouffé côté voitures.
 
 ### P6 — L'étendue du service · 22,5–28,5 s (i 675–855)
-**VO :** « Express, au frais, en tournée… ou partout en Europe. Sept jours sur sept. »
+**VO :** « Express, au frais, en tournée… Sept jours sur sept. »
 - **Image :** la caméra **s'élève** à la verticale (*crane up*) jusqu'à une vue carte de Bruxelles en isométrique, puis en vue de dessus. Depuis l'entrepôt, des **lignes lime** partent dans toutes les directions, chacune synchronisée sur un mot :
   - **Express** : une ligne rapide avec un éclair ⚡ ;
   - **au frais** : un pictogramme flocon et un thermomètre bloqué à **3 °C** ;
-  - **en tournée** : une boucle avec 5 points d'arrêt qui s'allument ;
-  - **partout en Europe** : *dézoom* fluide jusqu'au contour de l'Europe, avec des arcs depuis Bruxelles.
+  - **en tournée** : une boucle avec 5 points d'arrêt qui s'allument, pendant que la caméra *dézoome* jusqu'à voir **tout Bruxelles et sa périphérie**, avec Drogenbos au bord du cadre. Le réseau lime couvre la ville.
 - Sur « Sept jours sur sept », une barre `L M M J V S D` apparaît et les 7 jours s'allument en lime, un par un, en cascade rapide.
 - **CAM :** *crane up* puis *dézoom* continu, sans coupe.
 - **SFX :** un *tick* par ligne, un souffle léger au dézoom, un « ding » cristallin sur le dimanche.
@@ -141,7 +140,7 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 
 ### P10 — L'appel à l'action · 40,0–45,0 s (i 1200–1350)
 **VO :** « Demandez votre devis sur notre site. »
-- **Image :** carte de fin. `gresend.be` en grand, un bouton `Demander un devis →` (lime, texte blanc), le téléphone **+32 471 30 40 31**, et une rangée d'icônes : `7j/7 · Électrique · Frigo · Stockage · Europe`.
+- **Image :** carte de fin. `gresend.be` en grand, un bouton `Demander un devis →` (lime, texte blanc), le téléphone **+32 471 30 40 31**, et une rangée d'icônes : `7j/7 · Électrique · Frigo · Stockage`.
 - **Durée de lecture :** la carte reste **au moins 3 s** sans mouvement important.
 - **SFX :** clic du bouton (le bouton « s'enfonce » une fois), puis la musique s'éteint.
 

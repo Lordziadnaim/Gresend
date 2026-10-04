@@ -52,7 +52,7 @@
 | Travelling latéral | P2 | Montrer la longueur de la file : l'enfer |
 | Gel + *dolly-in* | P3 | Faire respirer la bascule |
 | Suivi du colis | P4–P5 | Le plan-séquence : on ne lâche jamais le héros |
-| *Crane up* + dézoom | P6 | Révéler l'étendue (Bruxelles → Europe) |
+| *Crane up* + dézoom | P6 | Révéler l'étendue (la rue → tout Bruxelles) |
 | Plongée dans l'écran | P7 | Raccord entre le monde et l'interface |
 | Recul et élévation | P9 | La conclusion, la vue d'ensemble |
 

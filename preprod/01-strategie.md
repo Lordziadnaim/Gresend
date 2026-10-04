@@ -6,7 +6,7 @@
 
 | Service | Ce qu'ils disent (site) |
 |---|---|
-| Livraison | Standard, express, frigorifique ; journalière ; « dans n'importe quelle destination en Europe » |
+| Livraison | Standard, express, frigorifique ; journalière ; « dans n'importe quelle destination en Europe » (⚠️ non vérifiable : **retiré du film**, à confirmer avec le client) |
 | Logistique | Stockage, manutention, triage, ramassage, « adaptée à votre secteur » |
 | Livraison verte | « 100 % vert » : vélos-cargos électriques et camionnettes 100 % électriques |
 | Tournées | Tournées de livraison |
@@ -29,7 +29,7 @@
 
 - La LEZ et le plan Good Move à Bruxelles rendent la livraison en camionnette thermique plus coûteuse et plus lente.
 - Il y a environ 16 millions de livraisons par an à Bruxelles, dont environ un quart pourrait se faire à vélo-cargo (source : BX1).
-- Les concurrents sur la cyclologistique sont Urbike, Cargo Velo, Bike Delivery et Ziegler. **Aucun ne combine vélo-cargo, frigo, stockage, Europe et 7j/7.** → C'est l'angle « tout-en-un » de Gresend.
+- Les concurrents sur la cyclologistique sont Urbike, Cargo Velo, Bike Delivery et Ziegler. **Aucun ne combine vélo-cargo, frigo, stockage et 7j/7.** → C'est l'angle « tout-en-un » de Gresend.
 
 ---
 
@@ -94,6 +94,8 @@ Premium mais accessible, chaleureux et confiant, jamais agressif. Le personnage 
 ---
 
 ## Stratégie de vente pour toi (freelance)
+
+> 💬 **Question à poser au rendez-vous :** « Vous livrez vraiment partout en Europe ? » Si oui, ça fait une bonne vidéo de plus (« De Bruxelles à l'Europe »).
 
 1. **Le spec film :** produire le hero de 45 s et une version 9:16 de 15 s. Ne pas les publier publiquement avant leur accord.
 2. **Le premier contact :** envoyer le 9:16 en DM LinkedIn ou WhatsApp au gérant, avec une vidéo Loom de 60 s : « J'ai réalisé ce film pour Gresend, voici pourquoi il est construit comme ça. » Mentionner la logique Schwartz en une phrase.
