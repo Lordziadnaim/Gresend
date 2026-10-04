@@ -1,10 +1,10 @@
 # 02 — Script voix off & storyboard (plan-séquence)
 
 **Titre de travail :** *Le Colis*
-**Durée :** 45 s · **Cadence :** 30 i/s · **Total :** 1350 images · **Master :** 16:9 (1920×1080)
+**Durée :** 36,5 s (voix finale 33,25 s + 3,25 s de carte de fin) · **Cadence :** 30 i/s · **Total :** 1095 images · **Master :** 16:9 (1920×1080)
 **Principe :** un seul mouvement de caméra continu, sans coupe franche. On suit **un colis** de la commande à la porte du client. Les « plans » ci-dessous sont des **temps** de caméra, pas des coupes.
 
-> ⏱️ Le minutage est **provisoire**. Il sera verrouillé sur la voix off générée, grâce aux timestamps mot par mot (voir `04-production-remotion.md`).
+> ⏱️ Les minutages par plan ci-dessous datent de la version 45 s. **Le minutage de référence est maintenant `src/timeline.ts`**, calé sur la voix finale (P1 0–3,4 · P2 3,4–9,0 · P3 9,0–12,2 · P4 12,2–15,95 · P5 15,95–20,1 · P6 20,1–23,55 · P7 23,55–25,5 · P8 25,5–28,2 · P9 28,2–31,2 · P10 31,2–36,5 s).
 
 ---
 
@@ -150,9 +150,9 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 
 | Version | Format | Durée | Contenu |
 |---|---|---|---|
-| **Hero** | 16:9 1920×1080 | 45 s | Tout (P1 → P10) |
+| **Hero** | 16:9 1920×1080 | 36,5 s | Tout (P1 → P10) |
 | **Reel / Story** | 9:16 1080×1920 | 15 s | P1 (accroche) → P3 (bascule) → P5 (mécanisme) → P10 (appel à l'action) + **sous-titres complets** |
-| **Feed LinkedIn** | 4:5 1080×1350 | 45 s | Hero recadré + sous-titres |
+| **Feed LinkedIn** | 4:5 1080×1350 | 36,5 s | Hero recadré + sous-titres |
 | **Bumper** | 16:9 / 9:16 | 6 s | P5 (vélo qui dépasse la file) → logo |
 
 **Voix off de la version 15 s :**

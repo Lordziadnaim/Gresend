@@ -1,0 +1,27 @@
+{
+  "name": "gresend-le-colis",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Film motion design Gresend « Le Colis » — Remotion",
+  "scripts": {
+    "studio": "remotion studio",
+    "render:animatique": "remotion render Animatique out/animatique.mp4 --gl=swangle",
+    "still": "remotion still Animatique out/still.png --gl=swangle",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.8.1",
+    "@remotion/cli": "^4.0.532",
+    "@remotion/paths": "^4.0.532",
+    "@remotion/three": "^4.0.532",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "remotion": "^4.0.532",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "typescript": "^7.0.2"
+  }
+}
