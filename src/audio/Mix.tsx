@@ -65,7 +65,7 @@ export const Mix: React.FC = () => {
 
       {/* acte 1 */}
       <Sfx at={0} src="clock.mp3" vol={0.45} />
-      <Sfx at={3.4} src="traffic.mp3" vol={0.18} dur={5.4} loop />
+      <Sfx at={3.4} src="traffic.mp3" vol={0.55} />
       <Sfx at={W.bouchons} src="stamp.mp3" vol={0.5} dur={0.6} />
       <Sfx at={W.stationnement} src="stamp.mp3" vol={0.5} dur={0.6} />
       <Sfx at={W.lez} src="stamp.mp3" vol={0.5} dur={0.6} />
