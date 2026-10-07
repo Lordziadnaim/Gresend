@@ -28,7 +28,7 @@ export const Hud: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <span style={{color: '#62C70A'}}>ANIMATIQUE v2</span>
+        <span style={{color: '#62C70A'}}>ANIMATIQUE v3</span>
         <span>
           {beat.id} · {beat.name}
         </span>

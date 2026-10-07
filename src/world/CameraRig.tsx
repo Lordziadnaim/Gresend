@@ -78,13 +78,22 @@ export const cameraAt = (t: number): CamKey => {
   return KEYS[KEYS.length - 1];
 };
 
-export const CameraRig: React.FC<{zoomScale?: number}> = ({zoomScale = 1}) => {
+// `closeup` : caméra qui suit le vélo de près (composition VeloCloseup, look-dev).
+export const CameraRig: React.FC<{zoomScale?: number; tOffset?: number; closeup?: number}> = ({
+  zoomScale = 1,
+  tOffset = 0,
+  closeup,
+}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const camera = useThree((s) => s.camera) as OrthographicCamera;
 
   useLayoutEffect(() => {
-    const {target, zoom} = cameraAt(frame / fps);
+    const t = frame / fps + tOffset;
+    const cam = closeup
+      ? {target: [bikePos(t)[0] - 0.4, 0.9, bikePos(t)[2]] as V3, zoom: closeup}
+      : cameraAt(t);
+    const {target, zoom} = cam;
     const tgt = new Vector3(...target);
     camera.position.copy(tgt.clone().add(VIEW_DIR.clone().multiplyScalar(DIST)));
     camera.up.set(0, 1, 0);
@@ -93,7 +102,7 @@ export const CameraRig: React.FC<{zoomScale?: number}> = ({zoomScale = 1}) => {
     camera.near = 0.1;
     camera.far = 1000;
     camera.updateProjectionMatrix();
-  }, [frame, fps, camera, zoomScale]);
+  }, [frame, fps, camera, zoomScale, tOffset, closeup]);
 
   return null;
 };

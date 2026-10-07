@@ -4,6 +4,7 @@ import {useLayoutEffect, useMemo, useRef} from 'react';
 import {useCurrentFrame, useVideoConfig} from 'remotion';
 import {Color, InstancedMesh, Object3D} from 'three';
 import {C} from '../brand';
+import {CargoBike} from './CargoBike';
 import {W} from '../timeline';
 import {
   APARTMENT_X,
@@ -221,21 +222,6 @@ const Person: React.FC<{p: [number, number, number]; color: string; scale?: numb
   </group>
 );
 
-const CargoBike: React.FC<{t: number}> = ({t}) => {
-  const [x, , z] = bikePos(t);
-  return (
-    <group position={[x, 0, z]}>
-      {/* caisson avant (vélo orienté vers -X) */}
-      <Box p={[-1.1, 0.55, 0]} s={[1.4, 0.95, 1.1]} color={C.lime} />
-      <Box p={[0.3, 0.45, 0]} s={[1.6, 0.12, 0.12]} color={C.ink} />
-      <Wheel p={[-1.2, 0.35, 0.62]} r={0.35} travelX={x} width={0.1} />
-      <Wheel p={[-1.2, 0.35, -0.62]} r={0.35} travelX={x} width={0.1} />
-      <Wheel p={[1.0, 0.4, 0]} r={0.4} travelX={x} width={0.1} />
-      <Person p={[0.55, 0.45, 0]} color={C.lime} scale={0.85} />
-    </group>
-  );
-};
-
 const EVan: React.FC<{t: number}> = ({t}) => {
   const x = evanX(t);
   if (x < -75 || x > 60) return null;
@@ -313,10 +299,10 @@ const Apartment: React.FC<{t: number}> = ({t}) => {
   );
 };
 
-export const World: React.FC = () => {
+export const World: React.FC<{tOffset?: number}> = ({tOffset = 0}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const t = frame / fps;
+  const t = frame / fps + tOffset;
   const st = simTime(t);
   const [px, py, pz] = parcelPos(t);
   const brakePulse = Math.sin(st * 6) > -0.2;

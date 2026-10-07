@@ -19,6 +19,9 @@ export const SHOP: V3 = [8, 0, -2.5];
 export const WAREHOUSE_DOOR: V3 = [24, 0, 5.2];
 export const BIKE_LANE_Z = 5.2;
 export const DOOR: V3 = [APARTMENT_X, 0, -0.4];
+// Le colis voyage posé au fond du caisson du vélo-cargo (repère du vélo).
+export const BIKE_BOX_X = -1.15;
+export const BIKE_BOX_FLOOR_Y = 0.5;
 
 // Le vélo-cargo : profil de VITESSE réaliste (accélère, file, freine), intégré
 // pour obtenir la position — donc pas de glissement, et des roues qui tournent juste.
@@ -48,6 +51,7 @@ const BIKE_TOTAL = distanceUntil(1e9);
 export const bikeX = (t: number) =>
   WAREHOUSE_DOOR[0] - (distanceUntil(t) / BIKE_TOTAL) * (WAREHOUSE_DOOR[0] - BIKE_STOP_X);
 export const bikePos = (t: number): V3 => [bikeX(t), 0, BIKE_LANE_Z];
+export const bikeDistance = (t: number) => WAREHOUSE_DOOR[0] - bikeX(t);
 
 // Le colis : boutique → convoyeur → scanner → rayonnage → vélo → porte.
 type Key = {t: number; p: V3};
@@ -58,18 +62,18 @@ const PARCEL_KEYS: Key[] = [
   {t: W.stocke - 0.1, p: [25, 1.35, -3]},
   {t: W.stocke + 0.6, p: [27.5, 2.6, -5.6]},
   {t: 15.2, p: [27.5, 2.6, -5.6]},
-  {t: W.file - 0.05, p: [WAREHOUSE_DOOR[0] - 1.1, 1.55, BIKE_LANE_Z]},
+  {t: W.file - 0.05, p: [WAREHOUSE_DOOR[0] + BIKE_BOX_X, BIKE_BOX_FLOOR_Y, BIKE_LANE_Z]},
 ];
 
 export const parcelPos = (t: number): V3 => {
   // Sur le vélo pendant le trajet
   if (t >= W.file - 0.05 && t < W.livre + 0.3) {
     const b = bikePos(t);
-    return [b[0] - 1.1, 1.55, b[2]];
+    return [b[0] + BIKE_BOX_X, BIKE_BOX_FLOOR_Y, b[2]];
   }
   // Remis à la cliente
   if (t >= W.livre + 0.3) {
-    const from: V3 = [bikePos(t)[0] - 1.1, 1.55, BIKE_LANE_Z];
+    const from: V3 = [bikePos(t)[0] + BIKE_BOX_X, BIKE_BOX_FLOOR_Y, BIKE_LANE_Z];
     const k = interpolate(t, [W.livre + 0.3, W.heure + 0.2], [0, 1], {
       easing: ease,
       extrapolateLeft: 'clamp',

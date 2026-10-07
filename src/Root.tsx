@@ -1,5 +1,6 @@
 import {Composition} from 'remotion';
 import {Animatique} from './Animatique';
+import {VeloCloseup} from './VeloCloseup';
 import {FPS, HEIGHT, WIDTH} from './brand';
 import {TOTAL_FRAMES} from './timeline';
 
@@ -13,6 +14,15 @@ export const RemotionRoot: React.FC = () => (
       width={WIDTH}
       height={HEIGHT}
       defaultProps={{showHud: true}}
+    />
+    <Composition
+      id="VeloCloseup"
+      component={VeloCloseup}
+      durationInFrames={120}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{tOffset: 17.2, zoom: 210}}
     />
   </>
 );
