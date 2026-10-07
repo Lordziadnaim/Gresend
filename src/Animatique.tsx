@@ -1,4 +1,4 @@
-// ANIMATIQUE v1 — « Le Colis » (Gresend)
+// ANIMATIQUE v2 — « Le Colis » (Gresend)
 // Blocs gris, vraie caméra, vrai rythme, voix off finale. On valide ici le
 // timing et la lisibilité AVANT le look-dev (étape 4 de 04-production-remotion.md).
 import './fonts';

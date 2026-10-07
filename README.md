@@ -13,7 +13,7 @@ Film motion design (spec) pour [Gresend](https://gresend.be), service de livrais
 |---|---|
 | 1. Script verrouillé | ✅ |
 | 2–3. Voix off (Luca, prise 2 + corrections) | ✅ `public/audio/vo-fr.wav` |
-| 4. **Animatique v1** (blocs gris, vraie caméra, voix calée) | ✅ composition `Animatique` |
+| 4. **Animatique v2** (blocs gris, vraie caméra, voix calée, roues réalistes) | ✅ composition `Animatique` · `renders/animatique-v2.mp4` |
 | 5. Look-dev (4 images de référence) | ⏳ |
 | 6–9. Animation finale, musique/SFX, mixage, rendus | ⏳ |
 

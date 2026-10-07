@@ -31,7 +31,7 @@ Le texte fait environ 95 mots, soit 38 à 40 s de voix. Il reste ainsi 5 à 7 s 
 **Prononciation (validée) :**
 - **« Gresend » = « Gré-sennde »** : le mot est écrit `/ɡʁesɛnd/` dans le texte envoyé au modèle. Les sous-titres et textes à l'écran gardent bien sûr « Gresend ».
 - **L'URL n'est pas prononcée**, pour éviter tout risque (« point bé » ou « point bé-eu »). La voix dit « sur notre site » et la carte de fin affiche `gresend.be` en grand.
-- « LEZ » n'est **pas** prononcé, c'est trop ambigu à l'oral. La voix dit « zones basses émissions » et l'écran affiche « LEZ ».
+- « LEZ » n'est **pas** prononcé, c'est trop ambigu à l'oral. La voix dit « zones basses émissions » et l'écran affiche « ZONES BASSES ÉMISSIONS ». **Le sigle « LEZ » n'apparaît nulle part :** il n'est pas compris par tout le monde (retour de relecture de l'animatique v1).
 
 ### Voix : français, accent belge
 
@@ -74,10 +74,10 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 
 ### P2 — Le chaos · 4,0–9,0 s (i 120–270)
 **VO :** « Bouchons, stationnement, zones basses émissions… À Bruxelles, chaque retard vous coûte un client. »
-- **Image :** la caméra glisse au-dessus d'une rue bloquée : file de voitures grises, **une camionnette de livraison grise sans marque coincée**, feux stop rouges qui pulsent, panneau LEZ, panneau « P complet ».
+- **Image :** la caméra glisse au-dessus d'une rue bloquée : file de voitures grises, **une camionnette de livraison grise sans marque coincée**, feux stop rouges qui pulsent, panneau « P complet ».
 - **CAM :** travelling latéral lent (de droite à gauche), légèrement plongeant.
 - **ANIM :** les mots s'impriment en tampon, synchronisés sur la VO. À 7,5 s, une carte d'avis client apparaît : `★☆☆☆☆ « Toujours pas reçu… »`.
-- **TXT :** `BOUCHONS` · `STATIONNEMENT` · `LEZ` (Red Hat Display Black, rouge `#E5484D` sur blanc, léger tremblement).
+- **TXT :** `BOUCHONS` · `STATIONNEMENT` · `ZONES BASSES ÉMISSIONS` (Red Hat Display Black, rouge `#E5484D` sur blanc, léger tremblement).
 - **SFX :** klaxons, moteur au ralenti, *stamp* sur chaque mot, *riser* qui monte vers 9 s.
 - **MUS :** tension, pulsation qui accélère.
 
@@ -100,7 +100,7 @@ Légende : **CAM** = mouvement de caméra · **ANIM** = animation · **TXT** = t
 
 ### P5 — Le mécanisme · 17,0–22,5 s (i 510–675) ⭐ *plan clé*
 **VO :** « Puis il file en vélo-cargo, ou en camionnette électrique — pendant que les autres attendent. »
-- **Image :** le colis glisse dans le caisson d'un **vélo-cargo électrique Gresend**. Le vélo sort de l'entrepôt et remonte une piste cyclable **le long de la même file grise de l'acte 1** : on reconnaît la camionnette grise, toujours bloquée. Sur la voie d'à côté passe une **camionnette électrique lime Gresend** (icône ⚡). Le panneau LEZ affiche une coche verte au passage.
+- **Image :** le colis glisse dans le caisson d'un **vélo-cargo électrique Gresend**. Le vélo sort de l'entrepôt et remonte une piste cyclable **le long de la même file grise de l'acte 1** : on reconnaît la camionnette grise, toujours bloquée. Sur la voie d'à côté passe une **camionnette électrique lime Gresend** (icône ⚡). Une étiquette « Zéro émission ✓ » apparaît au passage.
 - **CAM :** **travelling d'accompagnement** à la vitesse du vélo. Les voitures défilent en sens inverse relatif : c'est la démonstration visuelle du mécanisme. Légère parallaxe au premier plan (arbres, potelets).
 - **ANIM :** le vélo double 6 voitures. Une ligne de trajet lime se dessine derrière lui (`evolvePath`) : **c'est la ligne qui finira dans le logo.**
 - **TXT :** `Vélo-cargo` · `100 % électrique` (petites étiquettes qui suivent les véhicules).

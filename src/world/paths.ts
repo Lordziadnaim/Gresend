@@ -20,24 +20,33 @@ export const WAREHOUSE_DOOR: V3 = [24, 0, 5.2];
 export const BIKE_LANE_Z = 5.2;
 export const DOOR: V3 = [APARTMENT_X, 0, -0.4];
 
-// Le vélo-cargo : attend devant l'entrepôt, file sur la piste cyclable
-// le long de la file de voitures, s'arrête devant chez la cliente.
-export const bikeX = (t: number) => {
-  if (t < W.file) return WAREHOUSE_DOOR[0];
-  if (t < 23.5) {
-    const k = interpolate(t, [W.file, 23.5], [0, 1], {
-      easing: Easing.bezier(0.45, 0, 0.75, 1),
-      extrapolateLeft: 'clamp',
-      extrapolateRight: 'clamp',
-    });
-    return WAREHOUSE_DOOR[0] + (APARTMENT_X + 4 - WAREHOUSE_DOOR[0]) * k;
+// Le vélo-cargo : profil de VITESSE réaliste (accélère, file, freine), intégré
+// pour obtenir la position — donc pas de glissement, et des roues qui tournent juste.
+// Il double la camionnette grise bloquée pendant « …pendant que les autres attendent »
+// (≈ 19,3 s) puis freine pour s'arrêter devant chez la cliente.
+const BIKE_V: [number, number][] = [
+  [W.file, 0],
+  [16.9, 14],
+  [20.1, 14],
+  [21.5, 2],
+  [23.7, 0],
+];
+const BIKE_STOP_X = APARTMENT_X + 0.5;
+const distanceUntil = (t: number) => {
+  let d = 0;
+  for (let i = 0; i < BIKE_V.length - 1; i++) {
+    const [t0, v0] = BIKE_V[i];
+    const [t1, v1] = BIKE_V[i + 1];
+    if (t <= t0) break;
+    const te = Math.min(t, t1);
+    const ve = v0 + ((v1 - v0) * (te - t0)) / (t1 - t0);
+    d += ((v0 + ve) / 2) * (te - t0);
   }
-  return interpolate(t, [23.5, 25.4], [APARTMENT_X + 4, APARTMENT_X + 0.5], {
-    easing: Easing.out(Easing.cubic),
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  return d;
 };
+const BIKE_TOTAL = distanceUntil(1e9);
+export const bikeX = (t: number) =>
+  WAREHOUSE_DOOR[0] - (distanceUntil(t) / BIKE_TOTAL) * (WAREHOUSE_DOOR[0] - BIKE_STOP_X);
 export const bikePos = (t: number): V3 => [bikeX(t), 0, BIKE_LANE_Z];
 
 // Le colis : boutique → convoyeur → scanner → rayonnage → vélo → porte.

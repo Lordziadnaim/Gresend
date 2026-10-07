@@ -25,7 +25,7 @@
 ## Typographie
 
 - **Red Hat Display** (Google Fonts, licence OFL), la police du site :
-  - **Black 900** pour les mots-impacts (`BOUCHONS`, `LEZ`) ;
+  - **Black 900** pour les mots-impacts (`BOUCHONS`, `ZONES BASSES ÉMISSIONS`) ;
   - **Bold 700** pour les phrases ;
   - **Medium 500** pour la signature.
 - **Red Hat Text** pour les interfaces et sous-titres.

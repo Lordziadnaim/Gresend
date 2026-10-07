@@ -1,4 +1,5 @@
 // Calques 2D synchronisés sur la voix off, plan par plan.
+import {getLength, getPointAtLength} from '@remotion/paths';
 import {AbsoluteFill, Easing, Img, interpolate, staticFile} from 'remotion';
 import {C, FONT} from '../brand';
 import {W} from '../timeline';
@@ -40,7 +41,14 @@ export const WaitingPhone: React.FC = () => {
 };
 
 // ───────────────────────── P2 — mots-impacts + avis 1 étoile
-const Stamp: React.FC<{at: number; text: string; x: number; y: number; rot: number}> = ({at, text, x, y, rot}) => {
+const Stamp: React.FC<{at: number; text: string; x: number; y: number; rot: number; size?: number}> = ({
+  at,
+  text,
+  x,
+  y,
+  rot,
+  size = 116,
+}) => {
   const {t} = useT();
   const a = useAppear(at, 11);
   const o = windowOpacity(t, at, W.freeze + 0.5, 0.12);
@@ -55,7 +63,7 @@ const Stamp: React.FC<{at: number; text: string; x: number; y: number; rot: numb
         transform: `rotate(${rot}deg) scale(${1.6 - 0.6 * a}) translateX(${shake}px)`,
         fontFamily: FONT,
         fontWeight: 900,
-        fontSize: 116,
+        fontSize: size,
         letterSpacing: -2,
         color: C.white,
         background: C.problemRed,
@@ -71,9 +79,9 @@ const Stamp: React.FC<{at: number; text: string; x: number; y: number; rot: numb
 
 export const ChaosWords: React.FC = () => (
   <AbsoluteFill>
-    <Stamp at={W.bouchons} text="BOUCHONS" x={120} y={110} rot={-4} />
-    <Stamp at={W.stationnement} text="STATIONNEMENT" x={260} y={290} rot={2} />
-    <Stamp at={W.lez} text="LEZ" x={1480} y={120} rot={-6} />
+    <Stamp at={W.bouchons} text="BOUCHONS" x={110} y={90} rot={-4} />
+    <Stamp at={W.stationnement} text="STATIONNEMENT" x={210} y={250} rot={2} />
+    <Stamp at={W.lez} text="ZONES BASSES ÉMISSIONS" x={300} y={420} rot={-2} size={82} />
   </AbsoluteFill>
 );
 
@@ -233,9 +241,9 @@ const Tag: React.FC<{at: number; end: number; text: string; x: number; y: number
 
 export const VehicleTags: React.FC = () => (
   <AbsoluteFill>
-    <Tag at={W.file + 0.2} end={20.0} text="Vélo-cargo" x={760} y={250} />
+    <Tag at={W.file + 0.2} end={20.0} text="Vélo-cargo" x={880} y={455} />
     <Tag at={W.camionnette} end={20.0} text="100 % électrique" icon="⚡" x={1090} y={340} />
-    <Tag at={W.autres} end={20.0} text="LEZ ✓" x={160} y={240} />
+    <Tag at={W.autres} end={20.0} text="Zéro émission ✓" x={160} y={240} />
   </AbsoluteFill>
 );
 
@@ -322,17 +330,12 @@ export const TrackingPhone: React.FC = () => {
   const k = Math.min(inK, outK);
   if (k <= 0) return null;
   const prog = interpolate(t, [W.suivez, 25.4], [0.15, 0.92], clamp);
-  // tracé de la tournée sur la mini-carte
+  // Tracé de la tournée sur la mini-carte. Le point est calculé SUR ce même tracé
+  // (getPointAtLength) : il ne peut pas sortir de la ligne.
   const path = 'M60 520 C 140 470, 120 380, 210 340 S 330 250, 300 160 S 360 80, 420 70';
-  const pt = (p: number) => {
-    // approximation : interpolation sur des points du tracé
-    const pts = [[60, 520], [150, 450], [210, 340], [300, 260], [300, 160], [360, 95], [420, 70]];
-    const f = p * (pts.length - 1);
-    const i = Math.min(pts.length - 2, Math.floor(f));
-    const r = f - i;
-    return [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * r, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * r];
-  };
-  const [dx, dy] = pt(prog);
+  const total = getLength(path);
+  const pt = getPointAtLength(path, total * prog) ?? {x: 60, y: 520};
+  const [dx, dy] = [pt.x, pt.y];
   const mins = Math.max(1, Math.ceil(4 - (t - W.suivez) * 1.2));
   return (
     <AbsoluteFill style={{background: `rgba(234,244,252,${0.92 * k})`, alignItems: 'center', justifyContent: 'center'}}>
@@ -352,7 +355,8 @@ export const TrackingPhone: React.FC = () => {
             <rect width="484" height="600" fill="#EAF0F5" />
             {[80, 180, 280, 380, 480].map((y) => <rect key={y} x="0" y={y} width="484" height="18" fill="#fff" />)}
             {[70, 200, 330, 440].map((x) => <rect key={x} x={x} y="0" width="18" height="600" fill="#fff" />)}
-            <path d={path} stroke={C.lime} strokeWidth="10" fill="none" strokeLinecap="round" strokeDasharray="6 0" />
+            <path d={path} stroke="#B9C0C9" strokeWidth="10" fill="none" strokeLinecap="round" strokeDasharray="2 16" />
+            <path d={path} stroke={C.lime} strokeWidth="10" fill="none" strokeLinecap="round" strokeDasharray={`${total * prog} ${total}`} />
             <circle cx="420" cy="70" r="16" fill={C.ink} />
             <circle cx={dx} cy={dy} r={22 + Math.sin(t * 8) * 3} fill={C.lime} opacity={0.3} />
             <circle cx={dx} cy={dy} r="14" fill={C.lime} stroke="#fff" strokeWidth="4" />

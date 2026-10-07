@@ -45,7 +45,7 @@ gresend/
    │  ├─ CargoBike.tsx, EVan.tsx, Car.tsx, Parcel.tsx, Person.tsx
    │  └─ RouteLine.tsx       # tracé lime (évolue → morph en logo)
    ├─ overlays/
-   │  ├─ KineticWord.tsx     # BOUCHONS / LEZ…
+   │  ├─ KineticWord.tsx     # BOUCHONS / ZONES BASSES ÉMISSIONS…
    │  ├─ UiChip.tsx, PhoneTracking.tsx, ReviewCard.tsx, WeekBar.tsx
    │  ├─ BlobWipe.tsx        # transition menthe 2 couches
    │  ├─ LogoReveal.tsx      # flèches du « s » + lettres

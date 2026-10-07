@@ -147,8 +147,13 @@ const Car: React.FC<{x: number; z: number; t: number; van?: boolean; brakeOn: bo
   const H = van ? 2.3 : 1.4;
   return (
     <group position={[x, 0, z]}>
-      <Box p={[0, 0.25, 0]} s={[L, H, 1.8]} color={van ? '#A3ABB5' : C.problemGrey} />
-      {!van && <Box p={[0.2, 0.25 + H, 0]} s={[L * 0.55, 0.8, 1.6]} color={C.problemGrey} />}
+      <Box p={[0, 0.3, 0]} s={[L, H, 1.8]} color={van ? '#A3ABB5' : C.problemGrey} />
+      {[-1, 1].map((sx) =>
+        [-1, 1].map((sz) => (
+          <Wheel key={`${sx}${sz}`} p={[sx * (L / 2 - 0.75), 0.36, sz * 0.92]} r={0.36} travelX={x} />
+        )),
+      )}
+      {!van && <Box p={[0.2, 0.3 + H, 0]} s={[L * 0.55, 0.8, 1.6]} color={C.problemGrey} />}
       {/* feux stop (côté +X = arrière) */}
       <Box
         p={[L / 2 + 0.02, 0.6, 0.6]}
@@ -166,12 +171,38 @@ const Car: React.FC<{x: number; z: number; t: number; van?: boolean; brakeOn: bo
   );
 };
 
-const Wheel: React.FC<{p: [number, number, number]; r: number; spin: number}> = ({p, r, spin}) => (
-  <mesh position={p} rotation={[Math.PI / 2, 0, spin]}>
-    <cylinderGeometry args={[r, r, 0.15, 16]} />
-    <meshLambertMaterial color={C.ink} />
-  </mesh>
-);
+// Roue réaliste : elle tourne autour de SON axe, à la vitesse qui correspond au
+// déplacement (angle = distance / rayon), avec jante et rayons pour qu'on voie
+// la rotation. Axe de la roue = Z monde (les véhicules roulent le long de X).
+const Wheel: React.FC<{p: [number, number, number]; r: number; travelX: number; width?: number}> = ({
+  p,
+  r,
+  travelX,
+  width = 0.16,
+}) => {
+  // Rouler vers +X = rotation horaire vue depuis +Z (angle négatif autour de Z).
+  const angle = -travelX / r;
+  return (
+    // Euler XYZ : on tourne d'abord autour de l'axe du cylindre (Y local), puis on
+    // le couche (X) pour aligner son axe sur Z monde.
+    <group position={p} rotation={[Math.PI / 2, angle, 0]}>
+      <mesh>
+        <cylinderGeometry args={[r, r, width, 20]} />
+        <meshLambertMaterial color={C.ink} />
+      </mesh>
+      <mesh>
+        <cylinderGeometry args={[r * 0.6, r * 0.6, width + 0.02, 20]} />
+        <meshLambertMaterial color="#C9CFD6" />
+      </mesh>
+      {[0, Math.PI / 3, (2 * Math.PI) / 3].map((a) => (
+        <mesh key={a} rotation={[0, a, 0]}>
+          <boxGeometry args={[r * 1.15, width + 0.04, r * 0.16]} />
+          <meshLambertMaterial color="#6B7480" />
+        </mesh>
+      ))}
+    </group>
+  );
+};
 
 const Person: React.FC<{p: [number, number, number]; color: string; scale?: number}> = ({
   p,
@@ -192,15 +223,14 @@ const Person: React.FC<{p: [number, number, number]; color: string; scale?: numb
 
 const CargoBike: React.FC<{t: number}> = ({t}) => {
   const [x, , z] = bikePos(t);
-  const spin = -x * 1.4;
   return (
     <group position={[x, 0, z]}>
       {/* caisson avant (vélo orienté vers -X) */}
       <Box p={[-1.1, 0.55, 0]} s={[1.4, 0.95, 1.1]} color={C.lime} />
       <Box p={[0.3, 0.45, 0]} s={[1.6, 0.12, 0.12]} color={C.ink} />
-      <Wheel p={[-1.2, 0.35, 0.62]} r={0.35} spin={spin} />
-      <Wheel p={[-1.2, 0.35, -0.62]} r={0.35} spin={spin} />
-      <Wheel p={[1.0, 0.4, 0]} r={0.4} spin={spin} />
+      <Wheel p={[-1.2, 0.35, 0.62]} r={0.35} travelX={x} width={0.1} />
+      <Wheel p={[-1.2, 0.35, -0.62]} r={0.35} travelX={x} width={0.1} />
+      <Wheel p={[1.0, 0.4, 0]} r={0.4} travelX={x} width={0.1} />
       <Person p={[0.55, 0.45, 0]} color={C.lime} scale={0.85} />
     </group>
   );
@@ -211,10 +241,11 @@ const EVan: React.FC<{t: number}> = ({t}) => {
   if (x < -75 || x > 60) return null;
   return (
     <group position={[x, 0, 2.9]}>
-      <Box p={[0, 0.3, 0]} s={[4.8, 2.4, 1.9]} color={C.lime} />
-      <Box p={[2.65, 0.3, 0]} s={[0.6, 1.5, 1.8]} color={C.lime} />
-      <Wheel p={[-1.5, 0.35, 0.95]} r={0.38} spin={-x} />
-      <Wheel p={[1.6, 0.35, 0.95]} r={0.38} spin={-x} />
+      <Box p={[0, 0.35, 0]} s={[4.8, 2.4, 1.9]} color={C.lime} />
+      <Box p={[2.65, 0.35, 0]} s={[0.6, 1.5, 1.8]} color={C.lime} />
+      {[-1.5, 1.6].map((wx) =>
+        [-0.95, 0.95].map((wz) => <Wheel key={`${wx}${wz}`} p={[wx, 0.38, wz]} r={0.38} travelX={x} />),
+      )}
     </group>
   );
 };
@@ -317,7 +348,7 @@ export const World: React.FC = () => {
       {jam.map((x, i) => (
         <Car
           key={i}
-          x={x + Math.min(st, 30) * 0.05}
+          x={x - Math.min(st, 30) * 0.06}
           z={1.1}
           t={st}
           van={i === 4}
