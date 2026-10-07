@@ -6,6 +6,16 @@ import {TOTAL_FRAMES} from './timeline';
 
 export const RemotionRoot: React.FC = () => (
   <>
+    {/* MASTER à livrer : sans repères, musique + bruitages mixés */}
+    <Composition
+      id="GresendLeColis"
+      component={Animatique}
+      durationInFrames={TOTAL_FRAMES}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{showHud: false, mix: true}}
+    />
     <Composition
       id="Animatique"
       component={Animatique}

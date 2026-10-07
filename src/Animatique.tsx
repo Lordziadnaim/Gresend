@@ -5,6 +5,7 @@ import './fonts';
 import {ThreeCanvas} from '@remotion/three';
 import {AbsoluteFill, Audio, Easing, interpolate, staticFile} from 'remotion';
 import {C, FONT, HEIGHT, WIDTH} from './brand';
+import {Mix} from './audio/Mix';
 import {Hud} from './overlays/Hud';
 import {
   BlobWipe,
@@ -26,9 +27,9 @@ import {W} from './timeline';
 import {CameraRig} from './world/CameraRig';
 import {World} from './world/World';
 
-export type AnimatiqueProps = {showHud: boolean};
+export type AnimatiqueProps = {showHud: boolean; mix?: boolean};
 
-export const Animatique: React.FC<AnimatiqueProps> = ({showHud}) => {
+export const Animatique: React.FC<AnimatiqueProps> = ({showHud, mix = false}) => {
   const {t} = useT();
 
   // Script couleur : acte 1 désaturé, bascule pendant le lavis menthe.
@@ -74,7 +75,7 @@ export const Animatique: React.FC<AnimatiqueProps> = ({showHud}) => {
       <LogoReveal />
       <EndCard />
 
-      <Audio src={staticFile('audio/vo-fr.wav')} />
+      {mix ? <Mix /> : <Audio src={staticFile('audio/vo-fr.wav')} />}
       {showHud && <Hud />}
     </AbsoluteFill>
   );

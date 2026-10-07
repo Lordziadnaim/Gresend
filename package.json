@@ -6,6 +6,7 @@
   "scripts": {
     "studio": "remotion studio",
     "render:animatique": "remotion render Animatique out/animatique.mp4 --gl=swangle",
+    "render:final": "remotion render GresendLeColis out/gresend-le-colis-raw.mp4 --gl=swangle --codec=h264 --crf=16 && ffmpeg -y -i out/gresend-le-colis-raw.mp4 -c:v copy -af loudnorm=I=-14:TP=-1:LRA=11 -c:a aac -b:a 192k out/gresend-le-colis.mp4",
     "still": "remotion still Animatique out/still.png --gl=swangle",
     "typecheck": "tsc --noEmit"
   },

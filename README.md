@@ -14,16 +14,19 @@ Film motion design (spec) pour [Gresend](https://gresend.be), service de livrais
 | 1. Script verrouillé | ✅ |
 | 2–3. Voix off (Luca, prise 2 + corrections) | ✅ `public/audio/vo-fr.wav` |
 | 4. **Animatique v2** (blocs gris, vraie caméra, voix calée, roues réalistes) | ✅ composition `Animatique` · `renders/animatique-v2.mp4` |
-| 5. Look-dev (4 images de référence) | ⏳ |
-| 6–9. Animation finale, musique/SFX, mixage, rendus | ⏳ |
+| 5. Détail « premium » des éléments Gresend (vélo-cargo, camionnette, entrepôt, coursier, vrai logo) | ✅ |
+| 6–9. Musique + bruitages ElevenLabs, mixage (ducking, -14 LUFS), master | ✅ `renders/gresend-le-colis.mp4` |
 
 ## Lancer le projet
 
 ```bash
 npm install
 npm run studio                 # prévisualisation interactive (Remotion Studio)
-npm run render:animatique      # → out/animatique.mp4
+npm run render:animatique      # → out/animatique.mp4 (avec repères)
+npm run render:final           # → out/gresend-le-colis.mp4 (master à livrer)
 ```
+
+**Partis pris de la version finale :** le décor (ville, voitures, passants) reste en volumes gris épurés ; **seul ce qui appartient à Gresend est détaillé et en couleur** (vélo-cargo, camionnette électrique, entrepôt, coursier, marquages avec le vrai logo). L'œil va directement à la marque.
 
 Le monde 3D est rendu en WebGL via SwiftShader (`--gl=swangle`), donc aucun GPU n'est nécessaire. Sur une machine où Remotion ne trouve pas Chrome, ajoute `--browser-executable=<chemin vers chrome-headless-shell>`.
 

@@ -22,6 +22,12 @@ export const DOOR: V3 = [APARTMENT_X, 0, -0.4];
 // Le colis voyage posé au fond du caisson du vélo-cargo (repère du vélo).
 export const BIKE_BOX_X = -1.15;
 export const BIKE_BOX_FLOOR_Y = 0.5;
+// Livraison : le coursier descend du vélo (pendant l'écran du téléphone, P7)
+// et remet le colis en main propre à la cliente.
+export const COURIER_SWAP_T = 25.2;
+export const COURIER_AT: V3 = [APARTMENT_X + 1.6, 0, 0.75];
+const COURIER_HANDS: V3 = [COURIER_AT[0], 0.8, COURIER_AT[2] - 0.5];
+const CUSTOMER_HANDS: V3 = [APARTMENT_X + 1.4, 0.8, -0.3];
 
 // Le vélo-cargo : profil de VITESSE réaliste (accélère, file, freine), intégré
 // pour obtenir la position — donc pas de glissement, et des roues qui tournent juste.
@@ -58,28 +64,27 @@ type Key = {t: number; p: V3};
 const PARCEL_KEYS: Key[] = [
   {t: 0, p: [SHOP[0], 1.1, -0.6]},
   {t: W.recupere, p: [SHOP[0], 1.1, -0.6]},
-  {t: W.recupere + 0.7, p: [19.2, 1.35, -3]},
-  {t: W.stocke - 0.1, p: [25, 1.35, -3]},
-  {t: W.stocke + 0.6, p: [27.5, 2.6, -5.6]},
-  {t: 15.2, p: [27.5, 2.6, -5.6]},
+  {t: W.recupere + 0.7, p: [19.2, 1.1, -3]},
+  {t: W.stocke - 0.1, p: [25, 1.1, -3]},
+  {t: W.stocke + 0.6, p: [26.65, 1.99, -6.1]},
+  {t: 15.2, p: [26.65, 1.99, -6.1]},
   {t: W.file - 0.05, p: [WAREHOUSE_DOOR[0] + BIKE_BOX_X, BIKE_BOX_FLOOR_Y, BIKE_LANE_Z]},
 ];
 
 export const parcelPos = (t: number): V3 => {
   // Sur le vélo pendant le trajet
-  if (t >= W.file - 0.05 && t < W.livre + 0.3) {
+  if (t >= W.file - 0.05 && t < COURIER_SWAP_T) {
     const b = bikePos(t);
     return [b[0] + BIKE_BOX_X, BIKE_BOX_FLOOR_Y, b[2]];
   }
-  // Remis à la cliente
-  if (t >= W.livre + 0.3) {
-    const from: V3 = [bikePos(t)[0] + BIKE_BOX_X, BIKE_BOX_FLOOR_Y, BIKE_LANE_Z];
+  // Dans les mains du coursier, puis remis à la cliente
+  if (t >= COURIER_SWAP_T) {
     const k = interpolate(t, [W.livre + 0.3, W.heure + 0.2], [0, 1], {
       easing: ease,
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-    return lerp3(from, [DOOR[0] + 0.5, 1.25, DOOR[2] + 0.9], k);
+    return lerp3(COURIER_HANDS, CUSTOMER_HANDS, k);
   }
   for (let i = 0; i < PARCEL_KEYS.length - 1; i++) {
     const a = PARCEL_KEYS[i];

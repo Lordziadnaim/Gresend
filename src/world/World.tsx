@@ -5,6 +5,7 @@ import {useCurrentFrame, useVideoConfig} from 'remotion';
 import {Color, InstancedMesh, Object3D} from 'three';
 import {C} from '../brand';
 import {CargoBike} from './CargoBike';
+import {Courier, GresendVan, GresendWarehouse} from './GresendAssets';
 import {W} from '../timeline';
 import {
   APARTMENT_X,
@@ -13,6 +14,8 @@ import {
   SHOP,
   WAREHOUSE_DOOR,
   bikePos,
+  COURIER_AT,
+  COURIER_SWAP_T,
   evanX,
   parcelPos,
   simTime,
@@ -222,52 +225,6 @@ const Person: React.FC<{p: [number, number, number]; color: string; scale?: numb
   </group>
 );
 
-const EVan: React.FC<{t: number}> = ({t}) => {
-  const x = evanX(t);
-  if (x < -75 || x > 60) return null;
-  return (
-    <group position={[x, 0, 2.9]}>
-      <Box p={[0, 0.35, 0]} s={[4.8, 2.4, 1.9]} color={C.lime} />
-      <Box p={[2.65, 0.35, 0]} s={[0.6, 1.5, 1.8]} color={C.lime} />
-      {[-1.5, 1.6].map((wx) =>
-        [-0.95, 0.95].map((wz) => <Wheel key={`${wx}${wz}`} p={[wx, 0.38, wz]} r={0.38} travelX={x} />),
-      )}
-    </group>
-  );
-};
-
-const Warehouse: React.FC<{t: number}> = ({t}) => {
-  const [x0, x1, z0, z1] = [17.5, 33, -9, 0.6];
-  const scan = t > W.trie - 0.1 && t < W.trie + 0.6;
-  return (
-    <group>
-      {/* dalle + murs en coupe (vue « maison de poupée ») */}
-      <Box p={[(x0 + x1) / 2, 0, (z0 + z1) / 2]} s={[x1 - x0, 0.3, z1 - z0]} color="#E4E8EC" />
-      <Box p={[(x0 + x1) / 2, 0, z0]} s={[x1 - x0, 6.5, 0.4]} color={C.blockDark} />
-      <Box p={[x0, 0, (z0 + z1) / 2]} s={[0.4, 6.5, z1 - z0]} color={C.blockDark} />
-      {/* bandeau lime : c'est l'entrepôt Gresend */}
-      <Box p={[(x0 + x1) / 2, 6.5, z0]} s={[x1 - x0, 0.9, 0.5]} color={C.lime} />
-      {/* convoyeur */}
-      <Box p={[22, 0.3, -3]} s={[7, 0.75, 1.4]} color="#9AA3AE" />
-      {/* portique scanner + faisceau menthe */}
-      <Box p={[22, 0.3, -3.9]} s={[0.25, 2.6, 0.25]} color={C.ink} />
-      <Box p={[22, 0.3, -2.1]} s={[0.25, 2.6, 0.25]} color={C.ink} />
-      <Box p={[22, 2.9, -3]} s={[0.25, 0.25, 2.05]} color={C.ink} />
-      {scan && <Box p={[22, 1.05, -3]} s={[0.08, 1.8, 1.7]} color={C.mint} emissive={C.mint} opacity={0.75} />}
-      {/* rayonnages */}
-      {[0, 1, 2].map((i) => (
-        <group key={i}>
-          <Box p={[26 + i * 2.4, 0.3, -6.2]} s={[2, 0.15, 1.6]} color={C.blockDark} />
-          <Box p={[26 + i * 2.4, 2.1, -6.2]} s={[2, 0.15, 1.6]} color={C.blockDark} />
-          <Box p={[26 + i * 2.4, 0.45, -6.2]} s={[0.9, 0.8, 0.9]} color="#E2B37A" />
-        </group>
-      ))}
-      {/* porte côté rue */}
-      <Box p={[WAREHOUSE_DOOR[0], 0, z1]} s={[3.2, 3.4, 0.2]} color={C.ink} opacity={0.15} />
-    </group>
-  );
-};
-
 const Shop: React.FC = () => (
   <group>
     <Box p={[SHOP[0], 0, -3.6]} s={[6, 4, 4.8]} color={C.blockDark} />
@@ -308,7 +265,7 @@ export const World: React.FC<{tOffset?: number}> = ({tOffset = 0}) => {
   const brakePulse = Math.sin(st * 6) > -0.2;
 
   // File de voitures bloquées (on avance de quelques cm par seconde)
-  const jam = useMemo(() => Array.from({length: 9}, (_, i) => -34 + i * 4.7), []);
+  const jam = useMemo(() => Array.from({length: 9}, (_, i) => -30.5 + i * 4.7), []);
 
   return (
     <group>
@@ -329,7 +286,7 @@ export const World: React.FC<{tOffset?: number}> = ({tOffset = 0}) => {
 
       <Apartment t={t} />
       <Shop />
-      <Warehouse t={t} />
+      <GresendWarehouse t={t} scanOn={t > W.trie - 0.1 && t < W.trie + 0.6} doorX={WAREHOUSE_DOOR[0]} />
 
       {jam.map((x, i) => (
         <Car
@@ -342,11 +299,17 @@ export const World: React.FC<{tOffset?: number}> = ({tOffset = 0}) => {
         />
       ))}
 
-      <EVan t={t} />
-      <CargoBike t={t} />
+      {evanX(t) > -75 && evanX(t) < 60 && <GresendVan p={[evanX(t), 0, 2.9]} travel={-evanX(t)} />}
+      <CargoBike t={t} rider={t < COURIER_SWAP_T} />
+      {/* livraison en main propre (P8) */}
+      {t >= COURIER_SWAP_T && (
+        <Courier p={COURIER_AT} facing={-Math.PI / 2} carrying={t < W.heure + 0.2} />
+      )}
 
       {/* coursier Gresend devant la boutique (P4) */}
-      {t > 11.5 && t < 13.4 && <Person p={[SHOP[0] + 1.4, 0, 0.4]} color={C.lime} />}
+      {t > 11.5 && t < 13.4 && (
+        <Courier p={[SHOP[0] + 0.9, 0, 0.5]} facing={-Math.PI / 2} carrying={t > W.recupere && t < W.recupere + 0.5} />
+      )}
 
       {/* LE COLIS — le héros, seul objet chaud du film */}
       <Box p={[px, py, pz]} s={[0.75, 0.6, 0.75]} color={C.parcel} />

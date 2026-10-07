@@ -2,41 +2,14 @@
 // réelle (1 unité = 1 m). Orienté vers -X (sens de la marche). Le livreur pédale
 // réellement : les pédales tournent avec la distance parcourue et les jambes
 // suivent les pédales par cinématique inverse (hanche → genou → pied).
-import {useEffect, useMemo, useState} from 'react';
-import {continueRender, delayRender} from 'remotion';
-import {CanvasTexture, Quaternion, SRGBColorSpace, Vector3} from 'three';
 import {C} from '../brand';
+import {useBrandAssets, useDecalTexture, useShadowTexture} from './decals';
 import {BIKE_BOX_X, bikeDistance, bikePos} from './paths';
-
-type P3 = [number, number, number];
+import {Ball, P3, Rod} from './prims';
 
 const FRAME = '#2B3036';
 const NAVY = '#2B3442';
 const SKIN = '#E9C3A0';
-const UP = new Vector3(0, 1, 0);
-
-// Cylindre tendu entre deux points (tubes du cadre, membres du livreur).
-const Rod: React.FC<{a: P3; b: P3; r: number; color: string; rb?: number}> = ({a, b, r, color, rb}) => {
-  const va = new Vector3(...a);
-  const vb = new Vector3(...b);
-  const dir = vb.clone().sub(va);
-  const len = Math.max(dir.length(), 1e-4);
-  const q = new Quaternion().setFromUnitVectors(UP, dir.normalize());
-  const mid = va.add(vb).multiplyScalar(0.5);
-  return (
-    <mesh position={mid} quaternion={q}>
-      <cylinderGeometry args={[rb ?? r, r, len, 12]} />
-      <meshLambertMaterial color={color} />
-    </mesh>
-  );
-};
-
-const Ball: React.FC<{p: P3; r: number; color: string}> = ({p, r, color}) => (
-  <mesh position={p}>
-    <sphereGeometry args={[r, 14, 10]} />
-    <meshLambertMaterial color={color} />
-  </mesh>
-);
 
 // Roue de vélo : pneu, jante, moyeu, rayons. Elle roule (angle = distance / rayon).
 const BikeWheel: React.FC<{p: P3; r: number; travel: number}> = ({p, r, travel}) => (
@@ -74,55 +47,6 @@ const solveKnee = (hip: P3, foot: P3, l1: number, l2: number): P3 => {
   return k1[0] < k2[0] ? k1 : k2;
 };
 
-// Attend que Red Hat Display soit chargée avant de « peindre » le logo du caisson.
-const useFontReady = () => {
-  const [ready, setReady] = useState(false);
-  const [handle] = useState(() => delayRender('Police du marquage du vélo'));
-  useEffect(() => {
-    const done = () => {
-      setReady(true);
-      continueRender(handle);
-    };
-    document.fonts.load('900 120px "Red Hat Display"').then(done, done);
-  }, [handle]);
-  return ready;
-};
-
-const useDecal = (ready: boolean) =>
-  useMemo(() => {
-    const c = document.createElement('canvas');
-    c.width = 1024;
-    c.height = 512;
-    const g = c.getContext('2d')!;
-    g.clearRect(0, 0, c.width, c.height);
-    g.fillStyle = '#FFFFFF';
-    g.textAlign = 'center';
-    g.textBaseline = 'middle';
-    g.font = '900 230px "Red Hat Display", Arial, sans-serif';
-    g.fillText('gresend', 512, 230);
-    g.font = '700 70px "Red Hat Display", Arial, sans-serif';
-    g.fillText('livraison verte', 512, 400);
-    const tex = new CanvasTexture(c);
-    tex.colorSpace = SRGBColorSpace;
-    tex.needsUpdate = true;
-    return tex;
-  }, [ready]);
-
-const useShadow = () =>
-  useMemo(() => {
-    const c = document.createElement('canvas');
-    c.width = c.height = 256;
-    const g = c.getContext('2d')!;
-    const grad = g.createRadialGradient(128, 128, 10, 128, 128, 128);
-    grad.addColorStop(0, 'rgba(20,28,36,0.42)');
-    grad.addColorStop(1, 'rgba(20,28,36,0)');
-    g.fillStyle = grad;
-    g.fillRect(0, 0, 256, 256);
-    const tex = new CanvasTexture(c);
-    tex.needsUpdate = true;
-    return tex;
-  }, []);
-
 // Géométrie du vélo (repère local, mètres)
 const REAR: P3 = [0.82, 0.36, 0];
 const R_REAR = 0.36;
@@ -141,10 +65,17 @@ const SHIN = 0.48;
 const lerp = (a: P3, b: P3, k: number): P3 => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
 const z = (p: P3, zz: number): P3 => [p[0], p[1], zz];
 
-export const CargoBike: React.FC<{t: number}> = ({t}) => {
-  const ready = useFontReady();
-  const decal = useDecal(ready);
-  const shadow = useShadow();
+export const CargoBike: React.FC<{t: number; rider?: boolean}> = ({t, rider = true}) => {
+  const logo = useBrandAssets();
+  const decal = useDecalTexture(logo, {
+    w: 1024,
+    h: 512,
+    logoColor: '#FFFFFF',
+    logoWidth: 0.82,
+    logoY: 0.42,
+    lines: [{text: 'livraison verte', size: 74, weight: 800, color: '#FFFFFF', y: 0.82}],
+  });
+  const shadow = useShadowTexture();
   const [x, , zPos] = bikePos(t);
   const travel = bikeDistance(t);
 
@@ -271,6 +202,8 @@ export const CargoBike: React.FC<{t: number}> = ({t}) => {
         <meshLambertMaterial color="#FFF6D6" emissive="#7a6a30" />
       </mesh>
 
+      {rider && (
+        <group>
       {/* livreur : jambes (pédalent) */}
       {[
         {hip: hipR, knee: kneeR, foot: pedR},
@@ -310,6 +243,8 @@ export const CargoBike: React.FC<{t: number}> = ({t}) => {
           <Ball p={a.hand} r={0.05} color={SKIN} />
         </group>
       ))}
+        </group>
+      )}
     </group>
   );
 };
